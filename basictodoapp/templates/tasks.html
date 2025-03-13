@@ -11,25 +11,6 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-3">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Todo App</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    {% if user.is_authenticated %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a>
-                        </li>
-                    {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i> Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'register' %}"><i class="fas fa-user-plus"></i> Register</a>
-                        </li>
-                    {% endif %}
-                </ul>
-            </div>
         </div>
     </nav>
     <h1 class="text-center">Your Tasks</h1>
@@ -47,15 +28,20 @@
         </li>
         {% endfor %}
     </ul>
-    <div class="card mt-3">
+    <div class="card mt-3 shadow-lg">
         <div class="card-body">
-            <h5 class="card-title">Add New Task</h5>
+            <h5 class="card-title text-center">Add New Task</h5>
             <form method="post">
                 {% csrf_token %}
                 <div class="mb-3">
-                    {{ form.as_p }}
+                    <label for="taskTitle" class="form-label">Task Title</label>
+                    <input type="text" id="taskTitle" name="title" class="form-control" placeholder="Enter task title" required>
                 </div>
-                <button type="submit" class="btn btn-success w-100">Add Task</button>
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" id="completed" name="completed">
+                    <label class="form-check-label" for="completed">Mark as Completed</label>
+                </div>
+                <button type="submit" class="btn btn-success w-100"><i class="fas fa-plus-circle"></i> Add Task</button>
             </form>
         </div>
     </div>
